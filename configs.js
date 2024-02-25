@@ -1,0 +1,1 @@
+export const PYTHON_API = 'http://localhost:8000';
