@@ -2,22 +2,24 @@
 import { Button, Grid, TextField, Typography } from '@mui/material';
 import { getPokemon } from '../services/pokemonService/pokemonService';
 import { useState } from 'react';
+import PokemonImage from '../components/PokemonImage';
 
 const Home = () => {
     const [pokemon, setPokemon] = useState('');
+    const [pokeInfo, setPokeInfo] = useState(null);
 
-    const handleSearchPokemon = (e) => { setPokemon(e.target.value); console.log(pokemon) }
+    const handleSearchPokemon = (e) => { setPokemon(e.target.value); }
     
     const getPokemonByName = async (pokeName) => {
         try {
-            const response = await getPokemon(pokeName);
-            console.log('STATUS', response)
+            const response = await getPokemon(pokeName.toLowerCase());
     
             if (response.status === 200) {
-                return console.log('POKEMON', response.data)
+                setPokeInfo(response.data);
+                return response.data
             }
-        } catch {
-            return console.log('not find')
+        } catch (error) {
+            return console.log('Error: ', error)
         }
     }
 
@@ -48,6 +50,12 @@ const Home = () => {
                     </Button>
                 </Grid>
             </Grid>
+            { pokeInfo && (
+                <PokemonImage
+                    imageUrl={pokeInfo['sprites']['front_default']}
+                    pokeName={pokeInfo['name']}
+                />
+            )}
         </>
     );
 }
