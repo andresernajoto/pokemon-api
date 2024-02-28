@@ -3,10 +3,12 @@ import { Button, Grid, TextField, Typography } from '@mui/material';
 import { getPokemon } from '../services/pokemonService/pokemonService';
 import { useState } from 'react';
 import PokemonImage from '../components/PokemonImage';
+import { setTypeIcon } from '../utils/pokemonTypes';
 
 const Home = () => {
     const [pokemon, setPokemon] = useState('');
     const [pokeInfo, setPokeInfo] = useState(null);
+    const [pokeType, setPokeType] = useState('');
 
     const handleSearchPokemon = (e) => { setPokemon(e.target.value); }
     
@@ -16,6 +18,8 @@ const Home = () => {
     
             if (response.status === 200) {
                 setPokeInfo(response.data);
+                setPokeType(response.data['types'][0]['type']['name'])
+
                 return response.data
             }
         } catch (error) {
@@ -54,6 +58,7 @@ const Home = () => {
                 <PokemonImage
                     imageUrl={pokeInfo['sprites']['front_default']}
                     pokeName={pokeInfo['name']}
+                    pokeTypeUrl={pokeType in setTypeIcon ? pokeType : null}
                 />
             )}
         </>
