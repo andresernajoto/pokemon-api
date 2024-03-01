@@ -3,12 +3,23 @@ import { Button, Grid, TextField, Typography } from '@mui/material';
 import { getPokemon } from '../services/pokemonService/pokemonService';
 import { useState } from 'react';
 import PokemonImage from '../components/PokemonImage';
+import Notifications from '../components/Notifications';
 
 const Home = () => {
+    // handle pokemon responses
     const [pokemon, setPokemon] = useState('');
     const [pokeInfo, setPokeInfo] = useState(null);
     
+    // handle errors
     const [error, setError] = useState('');
+    
+    // handle notifications
+    const [severity, setSeverity] = useState('');
+    const [handleOpen, setHandleOpen] = useState(false);
+    const handleClose = (event, reason) => {
+        if (reason === 'clickaway') { return; }
+        setHandleOpen(false);
+    }
 
     const clearStates = () => {
         setPokemon('');
@@ -28,14 +39,17 @@ const Home = () => {
         } catch (e) {
             if (e.response.status === 404) {
                 setError('Pokémon não encontrado.');
-                console.log(error);
+                setSeverity('warning');
+                setHandleOpen(true);
                 clearStates();
 
                 return;
             }
 
             setError('Erro inesperado.')
-            console.log(error);
+            setSeverity('error');
+            setHandleOpen(true);
+            clearStates();
         }
     }
 
@@ -70,6 +84,14 @@ const Home = () => {
                 <PokemonImage
                     imageUrl={pokeInfo['sprites']['front_default']}
                     pokeName={pokeInfo['name']}
+                />
+            )}
+            { error && (
+                <Notifications
+                    open={handleOpen}
+                    onClose={handleClose}
+                    severity={severity}
+                    message={error}
                 />
             )}
         </>
