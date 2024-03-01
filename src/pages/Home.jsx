@@ -7,6 +7,13 @@ import PokemonImage from '../components/PokemonImage';
 const Home = () => {
     const [pokemon, setPokemon] = useState('');
     const [pokeInfo, setPokeInfo] = useState(null);
+    
+    const [error, setError] = useState('');
+
+    const clearStates = () => {
+        setPokemon('');
+        setPokeInfo(null);
+    };
 
     const handleSearchPokemon = (e) => { setPokemon(e.target.value); }
     
@@ -18,8 +25,17 @@ const Home = () => {
                 setPokeInfo(response.data);
                 return response.data
             }
-        } catch (error) {
-            return console.log('Error: ', error)
+        } catch (e) {
+            if (e.response.status === 404) {
+                setError('Pokémon não encontrado.');
+                console.log(error);
+                clearStates();
+
+                return;
+            }
+
+            setError('Erro inesperado.')
+            console.log(error);
         }
     }
 
@@ -60,4 +76,4 @@ const Home = () => {
     );
 }
 
-export default Home
+export default Home;
