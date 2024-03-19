@@ -56,24 +56,25 @@ const Home = () => {
     return (
         <>
             <Grid container>
-                <Grid item>
+                <Grid item sx={{ backgroundColor: '#ff100e', width: '100%', padding: '2rem', textAlign: 'right' }}>
                     <Typography
                         variant='h4'
+                        fontWeight={'bold'}
                     >
                         Pokemon API
                     </Typography>
                 </Grid>
             </Grid>
-            <Grid container>
-                <Grid item xs={6}>
+            <Grid container sx={{ marginTop: '3rem', justifyContent: 'center' }}>
+                <Grid item>
                     <TextField
                         label='Escolha um Pokemon'
                         onChange={handleSearchPokemon}
                     />
-                </Grid>
-                <Grid item xs={6}>
+
                     <Button
                         variant='contained'
+                        sx={{ marginLeft: '1rem', marginTop: '0.5rem' }}
                         onClick={() => getPokemonByName(pokemon)}
                     >
                         Pesquisar
@@ -81,10 +82,17 @@ const Home = () => {
                 </Grid>
             </Grid>
             { pokeInfo && (
-                <PokemonImage
-                    imageUrl={pokeInfo['sprites']['front_default']}
-                    pokeName={pokeInfo['name']}
-                />
+                <>
+                    <Grid container sx={{ justifyContent: 'center', marginTop: '2rem' }}>
+                        <Grid item>
+                            <PokemonImage
+                                imageUrl={pokeInfo['sprites']['front_default']}
+                                pokeName={pokeInfo['name']}
+                            />
+                        </Grid>
+                    </Grid>
+                </>
+                
             )}
             { error && (
                 <Notifications
