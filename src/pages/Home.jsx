@@ -6,7 +6,7 @@ import PokemonImage from '../components/PokemonImage';
 import Notifications from '../components/Notifications';
 
 const Home = () => {
-    // handle pokemon responses
+    // handle pokemon api responses
     const [pokemon, setPokemon] = useState('');
     const [pokeInfo, setPokeInfo] = useState(null);
     
@@ -56,16 +56,29 @@ const Home = () => {
     return (
         <>
             <Grid container>
-                <Grid item sx={{ backgroundColor: '#ff100e', width: '100%', padding: '2rem', textAlign: 'right' }}>
+                <Grid item
+                    sx={{ 
+                        backgroundColor: '#ff100e',
+                        width: '100%',
+                        padding: '2rem',
+                        textAlign: 'right'
+                    }}
+                >
                     <Typography
                         variant='h4'
                         fontWeight={'bold'}
+                        color={'#fff'}
                     >
                         Pokemon API
                     </Typography>
                 </Grid>
             </Grid>
-            <Grid container sx={{ marginTop: '3rem', justifyContent: 'center' }}>
+            <Grid container
+                sx={{
+                    marginTop: '3rem',
+                    justifyContent: 'center'
+                }}
+            >
                 <Grid item>
                     <TextField
                         label='Escolha um Pokemon'
@@ -74,7 +87,10 @@ const Home = () => {
 
                     <Button
                         variant='contained'
-                        sx={{ marginLeft: '1rem', marginTop: '0.5rem' }}
+                        sx={{
+                            marginLeft: '1rem',
+                            marginTop: '0.5rem'
+                        }}
                         onClick={() => getPokemonByName(pokemon)}
                     >
                         Pesquisar
@@ -83,7 +99,12 @@ const Home = () => {
             </Grid>
             { pokeInfo && (
                 <>
-                    <Grid container sx={{ justifyContent: 'center', marginTop: '2rem' }}>
+                    <Grid container
+                        sx={{
+                            justifyContent: 'center',
+                            marginTop: '2rem'
+                        }}
+                    >
                         <Grid item>
                             <PokemonImage
                                 imageUrl={pokeInfo['sprites']['front_default']}
