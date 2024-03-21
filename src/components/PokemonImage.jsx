@@ -7,7 +7,8 @@ const PokemonImage = ({ imageUrl, pokeName }) => {
             raised={true}
             sx={{
                 maxWidth: 250,
-                borderRadius: '1rem'
+                borderRadius: '1rem',
+                padding: '1rem 1rem 0 1rem'
             }}
         >
             <CardMedia
@@ -17,12 +18,15 @@ const PokemonImage = ({ imageUrl, pokeName }) => {
             />
             <CardContent
                 sx={{
-                    backgroundColor: '#e5e5e5'
+                    backgroundColor: '#e5e5e5',
+                    width: '100%',
+                    marginLeft: '-6.5%'
                 }}
             >
                 <Typography
-                    variant='h5'
+                    variant='h6'
                     align='center'
+                    fontWeight='bold'
                 >
                     {toCapitalize(pokeName)}
                 </Typography>
